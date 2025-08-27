@@ -604,7 +604,6 @@ dependencies = [
 [[package]]
 name = "cairo-air"
 version = "0.1.1"
-source = "git+https://github.com/massalabs/stwo-cairo?rev=ea9f36d7#ea9f36d75516b6b2e748cfa3bd2c407eecf07555"
 dependencies = [
  "clap",
  "itertools 0.12.1",
@@ -3404,7 +3403,6 @@ dependencies = [
 [[package]]
 name = "stwo-cairo-adapter"
 version = "0.1.0"
-source = "git+https://github.com/massalabs/stwo-cairo?rev=ea9f36d7#ea9f36d75516b6b2e748cfa3bd2c407eecf07555"
 dependencies = [
  "bincode 2.0.1",
  "bytemuck",
@@ -3429,7 +3427,6 @@ dependencies = [
 [[package]]
 name = "stwo-cairo-common"
 version = "0.1.0"
-source = "git+https://github.com/massalabs/stwo-cairo?rev=ea9f36d7#ea9f36d75516b6b2e748cfa3bd2c407eecf07555"
 dependencies = [
  "bytemuck",
  "itertools 0.12.1",
@@ -3446,7 +3443,6 @@ dependencies = [
 [[package]]
 name = "stwo-cairo-serialize"
 version = "0.1.0"
-source = "git+https://github.com/massalabs/stwo-cairo?rev=ea9f36d7#ea9f36d75516b6b2e748cfa3bd2c407eecf07555"
 dependencies = [
  "starknet-ff",
  "stwo",
@@ -3458,7 +3454,6 @@ dependencies = [
 [[package]]
 name = "stwo-cairo-serialize-derive"
 version = "0.1.0"
-source = "git+https://github.com/massalabs/stwo-cairo?rev=ea9f36d7#ea9f36d75516b6b2e748cfa3bd2c407eecf07555"
 dependencies = [
  "quote",
  "stwo",
@@ -3503,7 +3498,6 @@ dependencies = [
 [[package]]
 name = "stwo_cairo_prover"
 version = "0.1.0"
-source = "git+https://github.com/massalabs/stwo-cairo?rev=ea9f36d7#ea9f36d75516b6b2e748cfa3bd2c407eecf07555"
 dependencies = [
  "cairo-air",
  "hex",

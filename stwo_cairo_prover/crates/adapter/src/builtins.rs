@@ -195,14 +195,11 @@ impl BuiltinSegments {
     // the number of cells per instance.
     pub fn pad_relocatble_builtin_segments(
         relocatable_memory: &mut [Vec<Option<MaybeRelocatable>>],
-        builtin_segments: &BTreeMap<usize, BuiltinName>,
+        builtins_segments: BTreeMap<usize, BuiltinName>,
     ) {
         let _span = span!(Level::INFO, "pad_relocatble_builtin_segments").entered();
-        for (segment_index, builtin_name) in builtin_segments {
-            if *builtin_name == BuiltinName::segment_arena || *builtin_name == BuiltinName::output {
-                continue;
-            };
-            let current_builtin_segment = &mut relocatable_memory[*segment_index];
+        for (segment_index, builtin_name) in builtins_segments {
+            let current_builtin_segment = &mut relocatable_memory[segment_index];
 
             let original_segment_len = current_builtin_segment.len();
 
@@ -612,11 +609,12 @@ mod test_builtin_segments {
 
         let mut relocatable_memory = [segment0_extended, segment1.clone(), non_builtin_segment];
 
-        let builtin_segments = BTreeMap::from([(0, BuiltinName::bitwise), (1, BuiltinName::ec_op)]);
+        let builtins_segments =
+            BTreeMap::from([(0, BuiltinName::bitwise), (1, BuiltinName::ec_op)]);
 
         BuiltinSegments::pad_relocatble_builtin_segments(
             &mut relocatable_memory,
-            &builtin_segments,
+            builtins_segments,
         );
 
         assert!(relocatable_memory[0].len() == 32 * BITWISE_MEMORY_CELLS);
@@ -645,11 +643,11 @@ mod test_builtin_segments {
         let mul_mod_segment =
             vec![Some(MaybeRelocatable::Int(7.into())); MUL_MOD_MEMORY_CELLS * 123 + 3];
         let mut relocatable_memory = [mul_mod_segment];
-        let builtin_segments = BTreeMap::from([(0, BuiltinName::mul_mod)]);
+        let builtins_segments = BTreeMap::from([(0, BuiltinName::mul_mod)]);
 
         BuiltinSegments::pad_relocatble_builtin_segments(
             &mut relocatable_memory,
-            &builtin_segments,
+            builtins_segments,
         );
     }
 
@@ -662,11 +660,11 @@ mod test_builtin_segments {
         segment0[62] = None;
 
         let mut relocatable_memory = vec![segment0];
-        let builtin_segments = BTreeMap::from([(0, BuiltinName::bitwise)]);
+        let builtins_segments = BTreeMap::from([(0, BuiltinName::bitwise)]);
 
         BuiltinSegments::pad_relocatble_builtin_segments(
             &mut relocatable_memory,
-            &builtin_segments,
+            builtins_segments,
         );
     }
 }

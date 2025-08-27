@@ -175,12 +175,15 @@ pub fn run_program_and_adapter(
     hint_processor: Option<&mut dyn HintProcessor>,
 ) -> ProverInput {
     let cairo_run_config = CairoRunConfig {
+        entrypoint: "main",
         trace_enabled: true,
-        relocate_trace: false,
+        relocate_mem: false,
         layout: LayoutName::all_cairo_stwo,
         proof_mode: true,
+        secure_run: None,
+        allow_missing_builtins: None,
+        dynamic_layout_params: None,
         disable_trace_padding: true,
-        ..Default::default()
     };
 
     let mut default_hint_processor = BuiltinHintProcessor::new_empty();
@@ -188,7 +191,12 @@ pub fn run_program_and_adapter(
 
     let runner = cairo_run_program(program, &cairo_run_config, hint_processor)
         .expect("Failed to run cairo program");
-    adapter(&runner)
+    adapter(
+        &mut runner
+            .get_prover_input_info()
+            .expect("Failed to get prover input info from finished runner"),
+    )
+    .expect("Failed to run adapter")
 }
 
 pub fn read_compiled_cairo_program(program_path: &PathBuf) -> Program {
